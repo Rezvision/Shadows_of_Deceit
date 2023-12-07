@@ -1,0 +1,208 @@
+﻿title: Awake
+tag:
+colorID: 0
+position: -390,-355
+---
+
+<<declare $startedScene = true>>
+<<declare $cubeToChange = "" as string>>
+<<declare $colourOfCube = "" as string>>
+<<declare $numberOfNPCs = 0>>
+<<declare $visitedCubeOne = false>>
+<<declare $visitedCubeTwo = false>>
+<<declare $foundevidence = false>>
+<<declare $murderadmitted = false>>
+<<declare $suspectangry = false>>
+===
+
+
+title:NPCCube1
+tag:
+colorID: 0
+position: -3,-352
+---
+
+<<Set_Audio_To_NPC_One LipSync>>
+
+<<if $visitedCubeOne is false>>
+
+Hey I am Officer Watson, my dear friend Doctor Johnson was stabbed last night on his way home.  #line:NPCCube1_line1
+
+Have you heard about the recent murder in this area? #line:0b5bf33 
+
+-> Yes, I know who the murderer is. #line:01a5d6a
+    Nice try, pal. You need to talk to the suspects first before making wild accusations. Get some evidence, then come back. #line:051404c 
+    -> Sorry for wasting your time. #line:04d192e 
+        No worries. #line:0b0d401 
+    <<if $visitedCubeTwo is true>>
+    -> No, I actully found some evidence that can put the killer behind bars. #line:0b0933d 
+        Show me what you found friend. #line:0bc31a1 
+        <<if $murderadmitted is true>>
+        -> The killer admitted to having a personal vandeta with Doctor Johnson and killing him. His name is Abdul Abbas #line:01b2266 
+            That is not enough to convince the jury, find some physical evidence. #line:058893e 
+        <<endif>>
+        <<if $foundevidence is true>>
+        -> I found the weapon used to kill Doctor Johnson. #line:0619590 
+            Oh yeah with this we can put Abdul Abbas behind bars for a long time and the city is safe from a dangerous person like him. #line:0e1ac07 
+        <<endif>>   
+    <<endif>>
+-> I am the killer. #line:08022d4 
+        <<set $colourOfCube to "Red">>
+        You think this is a joke? Claiming false allegations is a serious crime. I should arrest you right now.This is not a laughing matter. Be serious or stay out of trouble. #line:00b4cf7 
+-> No, I don't know anything about it. #line:0211862 
+    <<set $colourOfCube to "Orange">>
+    Alright, keep your eyes open. If you see anything suspicious, report it. We need all the help we can get. #line:0f4d080 
+
+<<set $cubeToChange to "1">>
+<<change_cube_colour YarnCommands>>
+
+<<set $visitedCubeOne to true>>
+
+Be Carefull the killer is lurking around us. #line:0f534a6 
+
+<<jump EndConversation>>
+
+<<elseif $visitedCubeOne is true>>
+
+Welcome back law abiding citizen, so glad to see you! #line:0d424d0 
+
+Have you found any evidence? #line:0a201f0 
+
+->Yeah sure! #line:046993f 
+    <<jump ColourChange>>
+    <<if $visitedCubeTwo is true>>
+    Show me what you found friend. #line:084eb81 
+        <<if $murderadmitted is true>>
+        -> The killer admitted to having a personal vandeta with Doctor Johnson and killing him. His name is Abdul Abbas #line:03a9c99 
+            That is not enough to convince the jury, find some physical evidence. #line:08ab56f 
+        <<endif>>
+        <<if $foundevidence is true>>
+        -> I found the weapon used to kill Doctor Johnson. #line:0c73218 
+            Oh yeah with this we can put Abdul Abbas behind bars for a long time and the city is safe from a dangerous person like him. #line:0cbcf88 
+        <<endif>>   
+    
+    <<else>>
+        Please go talk to suspects they don't trust a police force around here. #line:0bb927d 
+    <<endif>>
+->Not this time... #line:0a25788 
+    No worries, I am glad you are safe!   #line:0264e09 
+
+<<endif>>  
+
+===
+
+title:ColourChange
+tag:
+position: -192,-165
+---
+
+-> Blue?  #line:034a5d7 
+    <<set $colourOfCube to "Blue">>
+-> Red? #line:098f73c 
+    <<set $colourOfCube to "Red">>
+-> Orange?  #line:0faaa4d 
+    <<set $colourOfCube to "Orange">>
+
+<<set $cubeToChange to "1">>
+
+<<change_cube_colour YarnCommands>>
+
+<<jump EndConversation>>
+
+===
+
+
+title:NPCCube2
+tag:
+position: 175,-194
+---
+
+<<Set_Audio_To_NPC_Two LipSync>>
+
+    
+<<if $visitedCubeOne is true>>
+What were you doing talking to that cop? Snitches get stiches and end up in ditches. #line:0356c2e 
+-> nothing he was just bothering me. #line:0565309 
+-> I dont like law enforcments more than you.In fact they make me sick. #line:0603cd2 
+<<endif>>
+<<if $visitedCubeTwo is false >>
+
+What do you want strangers? My name is Abdul Abbas and I don't like people like you !!! #line:NPCCube2_line1
+
+-> Nothing #line:0fe7fbe 
+    you seem very suspicous don't come around me #line:0e27cd7 
+-> I know you are the killer, hahaha! #line:0b6ef1b 
+    <<set $suspectangry to true>>
+    You think this is a joke? Accusing me without any proof? You're playing with fire, my friend. #line:04194be 
+-> There has been a murder around these ends! #line:055a7ab 
+    <<set $colourOfCube to "Red">>
+    Murder, you say? I ain't got time for your detective games. Be careful who you accuse, stranger. #line:00cd17f 
+-> Yo Bruv! Should we go murder some people for fun? #line:0bcbdc7 
+    <<set $colourOfCube to "Orange">>
+    Well, well, well. You got a taste for chaos, huh? I might have something for you. Follow me. #line:0825ba7 
+    ->Lead the way. I'm curious. #line:0adc10c 
+        Choose your weapons wisely, my friend #line:0b9c9fd 
+        <<set $foundevidence to true>>
+    ->Nah, just kidding. I'm not into that stuff #line:0f7953c 
+        Thought so. Don't play with fire unless you're ready to get burned. #line:0fafea6 
+    ->How about we cause some trouble instead of murder? #line:04dbcae 
+        Trouble, huh? I might have a job for you. Interested? #line:0047862 
+        ->Yeah count me in. #line:00b9811 
+            There is an antique store we can rub. the owner is old and should be an easy job. #line:054086f 
+            -> Oh that is so inhumane shame on you! #line:0f468e5 
+                <<set $suspectangry to true>>
+                I knew you weren't made for this. Get lost  #line:0d724f0 
+            ->Sounds good Do you have a lot of experience with trouble? #line:08bce65 
+                <<set $murderadmitted to true>>
+                Yeah I stabbed that Doctor Johnson scum. he was the reason my wife left me. he deserved what he got. #line:0b86cf2 
+                ->oh that sounds awful. you are a horrible person.  #line:0c6c0a7 
+                    Get lost you are not worthy of my time. #line:0f22bda 
+                    <<set $suspectangry to true>>
+                ->Nice I will use the same weapon you used for the last guy. Pass it to me. I can't wait to kill that old shop owner. #line:0cc77a8 
+                    Cool Lets waste no more time. here is the weapon. #line:01eb013 
+                    <<set $foundevidence to true>>
+
+
+        ->No I tend to stay out of trouble. #line:0c9932e 
+            Make sure you stay out of my way then #line:08975d9 
+            <<set $suspectangry to true>>
+
+
+        
+<<set $cubeToChange to "2">>
+<<change_cube_colour YarnCommands>>
+<<set $visitedCubeTwo to true>>
+<<if $suspectangry is true>>
+    I hate the sight of you. you are a snitch and you are next on my list! #line:0d19f2b 
+    <<else>>
+    Hey G. it was nice talking to you. Goodluck with our business plan. #line:017529e 
+<<endif>>
+//<<jump EndConversation>>
+<<else>>
+
+<<if $suspectangry is true>>
+    Go away! I'm not letting you near me again! #line:001110c 
+    <<else>>
+    hey friend. Have you been up to much trouble? #line:01554bc 
+<<endif>>
+
+<<endif>>
+
+===
+
+// title: EndConversation
+// tag:
+// position: -32,-7
+// ---
+
+// // <<if $cubeToChange is "1">>
+//     <<Set_Audio_To_NPC_One LipSync>>
+//     // Thank you so much for changing my colour to {$colourOfCube}, it really is nice. #line:085aee3 
+//     // I hope to see you again, bye! #line:028719a 
+// // <<elseif $cubeToChange is "2">>
+//     <<Set_Audio_To_NPC_Two LipSync>>
+//     // {$colourOfCube} really is the worst, I cannot believe you have done this to me.... #line:0a21868 
+//     I don't want to see you again, ever!! #line:058ceae 
+// <<endif>>
+
+// ===
