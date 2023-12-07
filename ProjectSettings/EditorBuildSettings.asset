@@ -8,7 +8,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Lightmapping Example/Lightmap Final.unity
     guid: fb0ca1eace2cfe845864fc03db83c705
-  - enabled: 1
+  - enabled: 0
     path: Assets/Unity VR Template/Scenes/SampleScene.unity
     guid: 55daccc09a3b69647bbab145b54a3ab3
   m_configObjects:
